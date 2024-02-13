@@ -10,13 +10,22 @@ app.get('/data', (req,res) => {
     res.json({'message':'Jai Shree Ram'})
 })
 
-app.get('/todo', (req,res) => {
-    res.send(TaskModel.getAllData())
-})
+// app.get('/todo', (req,res) => {
+//     res.send(TaskModel.getAllData())
+// })
 
+
+
+const bodyParser = require('body-parser')
 const todoController = new TodoController()
+app.use(bodyParser.json())
 
-app.get('/',todoController.getAllData)
+
+app.post('/add-todo', todoController.addTodo)
+
+
+
+app.get('/', todoController.getAllData)
 
 app.listen(8000, (err) => {
     if(err){
